@@ -1,0 +1,32 @@
+[
+  {
+    "instruction": "Explique de forma simples o que é Fine-Tuning com LoRA.",
+    "input": "",
+    "output": "LoRA (Low-Rank Adaptation) é uma técnica eficiente para personalizar modelos de linguagem (LLMs) sem precisar retreinar todos os seus bilhões de parâmetros. Em vez de modificar o modelo original, o LoRA 'congela' os pesos pré-treinados e adiciona pequenas matrizes matemáticas de adaptação nas camadas lineares. Isso reduz o consumo de memória VRAM em até 80%, acelera o treinamento e gera um arquivo final leve (de poucos megabytes), permitindo treinar modelos em GPUs acessíveis como a T4 do Google Colab."
+  },
+  {
+    "instruction": "Qual a diferença entre parâmetros congelados e adaptadores LoRA?",
+    "input": "",
+    "output": "Os parâmetros congelados (frozen parameters) são os pesos originais do modelo base que permanecem fixos durante todo o treino. Os adaptadores LoRA são matrizes adicionais de baixa dimensão (definidas pelo rank 'r') cujos pesos são os únicos atualizados pelo otimizador. Ao final, você pode salvar apenas esses pequenos adaptadores ou fundi-los (merge) de volta no modelo base."
+  },
+  {
+    "instruction": "O que é QLoRA e por que ele é tão popular?",
+    "input": "",
+    "output": "QLoRA é a evolução do LoRA que quantiza o modelo base em 4-bit (utilizando o formato NormalFloat4 e quantização dupla) enquanto mantém os adaptadores LoRA em 16-bit (bfloat16 ou float16). Essa combinação permite que modelos de 7B a 14B de parâmetros sejam treinados em GPUs de uso doméstico ou no plano gratuito do Colab com praticamente a mesma precisão de um treinamento em ponto flutuante completo."
+  },
+  {
+    "instruction": "Como o Gradient Accumulation Steps ajuda em GPUs com pouca memória?",
+    "input": "",
+    "output": "O Gradient Accumulation permite simular um tamanho de lote (batch size) maior somando os gradientes de múltiplos passos menores antes de atualizar os pesos da rede. Por exemplo, se a sua GPU só aguenta batch_size=2 sem estourar memória, definir grad_accum_steps=4 resulta em um lote efetivo de 8 exemplos por atualização, garantindo estabilidade matemática sem exigir mais VRAM."
+  },
+  {
+    "instruction": "Escreva uma função em Python para calcular o n-ésimo número da sequência de Fibonacci de forma eficiente.",
+    "input": "",
+    "output": "Aqui está uma implementação eficiente com complexidade O(n) de tempo e O(1) de espaço:\n\ndef fibonacci(n: int) -> int:\n    if n < 0:\n        raise ValueError('O valor de n deve ser não-negativo.')\n    if n in (0, 1):\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b"
+  },
+  {
+    "instruction": "O que fazer quando ocorre o erro 'CUDA out of memory' durante o treinamento?",
+    "input": "",
+    "output": "Para solucionar o erro 'CUDA out of memory' (OOM):\n1. Ative a quantização em 4-bit (QUANTIZATION='4-bit') na Célula 2.\n2. Reduza o BATCH_SIZE para 1 e compense aumentando GRAD_ACCUM_STEPS.\n3. Reduza o MAX_LENGTH de tokens (ex.: de 1024 para 512 ou 256).\n4. Certifique-se de que GRADIENT_CHECKPOINTING está definido como True.\n5. Execute a Célula 12 para limpar o cache da GPU antes de reiniciar o treino."
+  }
+]

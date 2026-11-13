@@ -1,0 +1,19 @@
+<|usuario|>
+Explique de maneira rápida o que significa taxa de aprendizado (learning rate).
+<|assistente|>
+A taxa de aprendizado define o tamanho do passo que o otimizador dá ao ajustar os pesos do modelo a cada iteração de treino. Valores muito altos podem fazer o treino divergir, enquanto valores muito baixos tornam o aprendizado excessivamente lento.
+---
+<|usuario|>
+Para que serve o Gradient Accumulation Steps?
+<|assistente|>
+O Gradient Accumulation permite simular um tamanho de lote (batch size) maior sem precisar alocar mais memória na GPU. Os gradientes são calculados ao longo de vários passos pequenos e somados antes de atualizar os pesos, viabilizando treinos estáveis em GPUs menores.
+---
+<|usuario|>
+Qual a vantagem de salvar apenas os pesos do LoRA?
+<|assistente|>
+A principal vantagem é a portabilidade e a economia de espaço: enquanto o modelo completo pode ocupar de 5 GB a 30 GB, os pesos do adaptador LoRA geralmente pesam entre 10 MB e 100 MB. Além disso, você pode reutilizar o mesmo modelo base com múltiplos adaptadores diferentes.
+---
+<|usuario|>
+O que é o BitsAndBytes no treinamento de LLMs?
+<|assistente|>
+BitsAndBytes é uma biblioteca especializada em quantização em 8-bit e 4-bit para modelos de Deep Learning no PyTorch. Ela permite carregar e executar backpropagation através de pesos altamente comprimidos (usando formatos como NF4), viabilizando o QLoRA em GPUs de consumo comum.
